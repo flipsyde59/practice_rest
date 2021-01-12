@@ -1,10 +1,22 @@
 package com.practice.job.practice_rest.model;
 
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"email"}, name="uk_email")})
 public class Client {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
     private String email;
-    private String phone;
+    private Integer age;
+    private Boolean sex;
+    @Temporal(TemporalType.DATE)
+    private Date birth_date;
+    private Float growth;
+
 
     public Integer getId() {
         return id;
@@ -30,11 +42,35 @@ public class Client {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Boolean getSex() {
+        return sex;
+    }
+
+    public void setSex(Boolean sex) {
+        this.sex = sex;
+    }
+
+    public Date getBirth_date() {
+        return birth_date;
+    }
+
+    public void setBirth_date(Date birth_date) {
+        this.birth_date = birth_date;
+    }
+
+    public Float getGrowth() {
+        return growth;
+    }
+
+    public void setGrowth(Float growth) {
+        this.growth = growth;
     }
 }
