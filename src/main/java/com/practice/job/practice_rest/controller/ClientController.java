@@ -3,14 +3,18 @@ package com.practice.job.practice_rest.controller;
 import com.practice.job.practice_rest.model.Client;
 import com.practice.job.practice_rest.service.ClientRepository;
 import com.practice.job.practice_rest.service.ClientString;
+import com.practice.job.practice_rest.service.ParserClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(path="/clients")
@@ -20,25 +24,19 @@ public class ClientController {
     private ClientRepository clientRepository;
 
     @PostMapping(path="/add")
-    public @ResponseBody String addNewClient (@RequestBody ClientString clientString) throws ParseException {
+    public @ResponseBody String addNewClient (@RequestBody ClientString clientString) {
 
-        Client n = new Client();
-        n.setName(clientString.getName());
-        n.setEmail(clientString.getEmail());
-        n.setAge(Integer.parseInt(clientString.getAge()));
-        n.setSex(Boolean.parseBoolean(clientString.getSex()));
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
-        n.setBirth_date(formatter.parse(clientString.getBirth_date()));
-        n.setGrowth(Float.parseFloat(clientString.getGrowth()));
-
-        String text="";
-
+        ParserClient parserClient = new ParserClient();
+        parserClient.FromString(clientString);
+        String status = parserClient.getStatus();
+        if (!status.equals("Ok")){
+            return status;
+        }
         try {
-            clientRepository.save(n);
-            text="Saved";}
+            clientRepository.save(parserClient.getClient());
+            return "Saved";}
         catch (DataIntegrityViolationException e) {
-            text="Not saved\nError: "+e.getMostSpecificCause().getMessage();}
-        return text;
+            return "Not saved\nError: "+e.getMostSpecificCause().getMessage();}
     }
 
     @GetMapping(path="/")
@@ -47,24 +45,32 @@ public class ClientController {
         return clientRepository.findAll();
     }
 
-    //@GetMapping(value = "/clients/{id}")
-    //public ResponseEntity<Client> read(@PathVariable(name = "id") int id) {
-    //    final Client client = clientService.read(id);
-//
-    //    return client != null
-    //            ? new ResponseEntity<>(client, HttpStatus.OK)
-    //            : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    //}
-//
-    //@PutMapping(value = "/clients/{id}")
-    //public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody Client client) {
-    //    final boolean updated = clientService.update(client, id);
-//
-    //    return updated
-    //            ? new ResponseEntity<>(HttpStatus.OK)
-    //            : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-    //}
-//
+    @GetMapping(value = "/{id}")
+    public @ResponseBody ResponseEntity<?> read(@PathVariable(name = "id") Integer id) {
+        Optional<Client> optionalClient = clientRepository.findById(id);
+        Client client = optionalClient.orElseGet(Client::new);
+        return client != null
+                ? new ResponseEntity<>(client, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping(value = "/{id}")
+    public @ResponseBody ResponseEntity<?> update(@PathVariable(name = "id") Integer id, @RequestBody ClientString clientString) {
+        ParserClient parserClient = new ParserClient();
+        parserClient.FromString(clientString);
+        Client updClient = parserClient.getClient();
+        Optional<Client> optionalClient = clientRepository.findById(id);
+        Client client = optionalClient.orElseGet(Client::new);
+        if (client.isEqual(updClient)){
+            //код для апдейта
+        }
+        //final boolean updated = clientRepository.updateEmail(, id);
+
+        return updated
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
+
     //@DeleteMapping(value = "/clients/{id}")
     //public ResponseEntity<?> delete(@PathVariable(name = "id") int id) {
     //    final boolean deleted = clientService.delete(id);

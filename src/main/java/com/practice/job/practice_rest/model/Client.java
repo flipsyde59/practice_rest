@@ -73,4 +73,13 @@ public class Client {
     public void setGrowth(Float growth) {
         this.growth = growth;
     }
+
+    public boolean isEqual(Client second){
+        return this.name.equals(second.name) &
+                this.email.equals(second.email) &
+                this.age.equals(second.age) &
+                this.sex == second.sex &
+                this.birth_date == second.birth_date &
+                this.growth.equals(second.growth);
+    }//подумать над раздельным сравнением
 }
