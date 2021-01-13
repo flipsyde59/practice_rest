@@ -1,7 +1,9 @@
 package com.practice.job.practice_rest.model;
 
+import com.practice.job.practice_rest.service.ClientRepository;
+
 import javax.persistence.*;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"email"}, name="uk_email")})
@@ -12,7 +14,7 @@ public class Client {
     private String name;
     private String email;
     private Integer age;
-    private Boolean sex;
+    private Boolean educated;
     @Temporal(TemporalType.DATE)
     private Date birth_date;
     private Float growth;
@@ -50,12 +52,12 @@ public class Client {
         this.age = age;
     }
 
-    public Boolean getSex() {
-        return sex;
+    public Boolean getEducated() {
+        return educated;
     }
 
-    public void setSex(Boolean sex) {
-        this.sex = sex;
+    public void setEducated(Boolean educated) {
+        this.educated = educated;
     }
 
     public Date getBirth_date() {
@@ -74,12 +76,4 @@ public class Client {
         this.growth = growth;
     }
 
-    public boolean isEqual(Client second){
-        return this.name.equals(second.name) &
-                this.email.equals(second.email) &
-                this.age.equals(second.age) &
-                this.sex == second.sex &
-                this.birth_date == second.birth_date &
-                this.growth.equals(second.growth);
-    }//подумать над раздельным сравнением
 }

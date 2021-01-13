@@ -12,7 +12,7 @@ public class ClientString {
     private String name;
     private String email;
     private String age;
-    private String sex;
+    private String educated;
     private String birth_date;
     private String growth;
 
@@ -41,12 +41,12 @@ public class ClientString {
         this.age = age;
     }
 
-    public String getSex() {
-        return sex;
+    public String getEducated() {
+        return educated;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setEducated(String educated) {
+        this.educated = educated;
     }
 
     public String getBirth_date() {
