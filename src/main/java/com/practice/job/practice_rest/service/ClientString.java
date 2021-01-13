@@ -1,12 +1,6 @@
 package com.practice.job.practice_rest.service;
 
 
-import com.practice.job.practice_rest.model.Client;
-import org.springframework.data.util.Pair;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class ClientString {
     private String name;

@@ -86,34 +86,34 @@ public class ClientController {
         Optional<Client> optionalClient = clientRepository.findById(id);
         if (optionalClient.isEmpty()) return "Client with that id "+id+" not found";
         Client client = optionalClient.orElseGet(Client::new);
-        List<String> text = new ArrayList<>();
+        List<String> fields = new ArrayList<>();
         if(!client.getName().equals(updClient.getName())){
             clientRepository.updateName(id,updClient.getName());
-            text.add("name");
+            fields.add("name");
         }
         if(!client.getEmail().equals(updClient.getEmail()) ){
             clientRepository.updateEmail(id,updClient.getEmail());
-            text.add("email");
+            fields.add("email");
         }
         if(!client.getAge().equals(updClient.getAge()) ){
             clientRepository.updateAge(id,updClient.getAge());
-            text.add("age");
+            fields.add("age");
         }
         if(!(client.getEducated() == updClient.getEducated()) ){
             clientRepository.updateEducated(id,updClient.getEducated());
-            text.add("educated");
+            fields.add("educated");
         }
         if(client.getBirth_date().compareTo(updClient.getBirth_date())!=0){
             clientRepository.updateBirth_date(id,updClient.getBirth_date());
-            text.add("birth_date");
+            fields.add("birth_date");
         }
         if(!client.getGrowth().equals(updClient.getGrowth())){
             clientRepository.updateGrowth(id,updClient.getGrowth());
-            text.add("growth");
+            fields.add("growth");
         }
-        return text.isEmpty()
+        return fields.isEmpty()
                 ? "Nothing have been changed"
-                : "Fields that have been updated:\n" + StringUtils.join(text, '|');
+                : "Fields that have been updated:\n" + StringUtils.join(fields, '|');
     }
 
     @DeleteMapping(value = "/clients/{id}")

@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 public interface ClientRepository extends CrudRepository<Client, Integer> {
-    Client findById(long id);
 
     @Modifying
     @Transactional

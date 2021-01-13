@@ -1,6 +1,5 @@
 package com.practice.job.practice_rest.model;
 
-import com.practice.job.practice_rest.service.ClientRepository;
 
 import javax.persistence.*;
 import java.util.*;
