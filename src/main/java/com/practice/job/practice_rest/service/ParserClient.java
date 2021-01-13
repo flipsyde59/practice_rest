@@ -46,7 +46,7 @@ public class ParserClient {
         if (this.client.getBirth_date()!=null & this.client.getEmail()!=null & this.client.getGrowth()!=null & this.client.getEducated()!=null)
             this.status = "Ok";
         else
-            this.status = "Unforeseeable error. Incorrect data detected";
+            this.status += "Unforeseeable error. Incorrect data detected";
     }
 
     public Client getClient() {
