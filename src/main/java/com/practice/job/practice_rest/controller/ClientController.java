@@ -5,6 +5,8 @@ import com.practice.job.practice_rest.service.ClientRepository;
 import com.practice.job.practice_rest.service.ClientString;
 import com.practice.job.practice_rest.service.ParserClient;
 import org.apache.tomcat.util.buf.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -16,113 +18,153 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 @Controller
-@RequestMapping(path="/clients")
+@RestController
+@RequestMapping(path = "/clients")
 public class ClientController {
+
+    Logger logger = LoggerFactory.getLogger(ClientController.class);
 
     @Autowired
     private ClientRepository clientRepository;
 
-    @PostMapping(path="/add")
-    public @ResponseBody String addNewClients (@RequestBody List<ClientString> clients) {
+    @PostMapping(path = "/addMany")
+    public @ResponseBody
+    String addNewClients(@RequestBody List<ClientString> clients) {
         List<String> errors = new ArrayList<>();
-        for (ClientString clientString :clients){
+        logger.info("Adding many clients starts");
+        for (ClientString clientString : clients) {
             ParserClient parserClient = new ParserClient();
             parserClient.FromString(clientString);
             String status = parserClient.getStatus();
-            if (!status.equals("Ok")){
-                errors.add("For client with email: "+clientString.getEmail() + "\n" + status);
-            }
-            try {
-                clientRepository.save(parserClient.getClient());
+            String email = clientString.getEmail();
+            if (!status.equals("Ok")) {
+                errors.add("For client with email: " + email + "\n" + status);
+                logger.info("Not added client with email=" + email + "\n" + status);
+            } else {
+                try {
+                    clientRepository.save(parserClient.getClient());
+                    logger.info("Client with email=" + email + " was added");
+                } catch (DataIntegrityViolationException e) {
+                    logger.info("Not added client with email=" + email);
+                    errors.add("For client with email: " + email + " not saved\nError: " + e.getMostSpecificCause().getMessage());
                 }
-            catch (DataIntegrityViolationException e) {
-                errors.add("For client with email: "+clientString.getEmail() + " not saved\nError: "+e.getMostSpecificCause().getMessage());}
+            }
         }
-    return errors.isEmpty()
-            ? "Saved"
-            : "Exepted errors:\n" + StringUtils.join(errors, '\n');
+        if (errors.isEmpty()) {
+            logger.info("All clients were added");
+            return "Saved";
+        } else {
+            logger.info("Some errors were get:\n" + StringUtils.join(errors, '\n'));
+            return "Exepted errors:\n" + StringUtils.join(errors, '\n');
+        }
     }
 
-    //For one client
-    //@PostMapping(path="/add")
-    //public @ResponseBody String addNewClient (@RequestBody ClientString clientString) {
-    //    ParserClient parserClient = new ParserClient();
-    //    parserClient.FromString(clientString);
-    //    String status = parserClient.getStatus();
-    //    if (!status.equals("Ok")){
-    //        return status;
-    //    }
-    //    try {
-    //        clientRepository.save(parserClient.getClient());
-    //    }
-    //    catch (DataIntegrityViolationException e) {
-    //        return "Not saved\nError: "+e.getMostSpecificCause().getMessage();}
-    //    return "Saved";
-    //}
+    @PostMapping(path = "/addOne")
+    public @ResponseBody
+    String addNewClient(@RequestBody ClientString clientString) {
+        logger.info("Adding one client starts");
+        ParserClient parserClient = new ParserClient();
+        parserClient.FromString(clientString);
+        String status = parserClient.getStatus();
+        if (!status.equals("Ok")) {
+            logger.info("Client was not added. Errors:\n" + status);
+            return status;
+        } else {
+            try {
+                clientRepository.save(parserClient.getClient());
+                logger.info("Client was added");
+            } catch (DataIntegrityViolationException e) {
+                logger.info("Not added client. Error: " + e.getMostSpecificCause().getMessage());
+                return "Not saved\nError: " + e.getMostSpecificCause().getMessage();
+            }
+            return "Saved";
+        }
+    }
 
-    @GetMapping(path="/")
-    public @ResponseBody Iterable<Client> getAllUsers() {
+    @GetMapping(path = "/")
+    public @ResponseBody
+    Iterable<Client> getAllUsers() {
+        logger.info("Get all clients");
         return clientRepository.findAll();
     }
 
     @GetMapping(value = "/{id}")
-    public @ResponseBody ResponseEntity<?> read(@PathVariable(name = "id") Integer id) {
+    public @ResponseBody
+    ResponseEntity<?> read(@PathVariable(name = "id") Integer id) {
         Optional<Client> optionalClient = clientRepository.findById(id);
-        if (optionalClient.isEmpty()) return new ResponseEntity<>("Client with that id "+id+" not found", HttpStatus.OK);
+        if (optionalClient.isEmpty()) {
+            logger.info("Get one client with not existing id=" + id);
+            return new ResponseEntity<>("Client with that id " + id + " not found", HttpStatus.OK);
+        }
         Client client = optionalClient.orElseGet(Client::new);
+        logger.info("Get one client id=" + id);
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")
-    public @ResponseBody String update(@PathVariable(name = "id") Integer id, @RequestBody ClientString clientString) {
+    public @ResponseBody
+    String update(@PathVariable(name = "id") Integer id, @RequestBody ClientString clientString) {
+        logger.info("Starting update client with id=" + id);
+        Optional<Client> optionalClient = clientRepository.findById(id);
+        if (optionalClient.isEmpty()) {
+            logger.info("Client with that id=" + id + " not found");
+            return "Client with that id " + id + " not found";
+        }
         ParserClient parserClient = new ParserClient();
         parserClient.FromString(clientString);
         String status = parserClient.getStatus();
-        if (!status.equals("Ok")){
+        if (!status.equals("Ok")) {
+            logger.info("Client was not updated. Errors:\n" + status);
             return status;
         }
         Client updClient = parserClient.getClient();
-        Optional<Client> optionalClient = clientRepository.findById(id);
-        if (optionalClient.isEmpty()) return "Client with that id "+id+" not found";
         Client client = optionalClient.orElseGet(Client::new);
         List<String> fields = new ArrayList<>();
-        if(!client.getName().equals(updClient.getName())){
-            clientRepository.updateName(id,updClient.getName());
+        if (!client.getName().equals(updClient.getName())) {
+            clientRepository.updateName(id, updClient.getName());
             fields.add("name");
         }
-        if(!client.getEmail().equals(updClient.getEmail()) ){
-            clientRepository.updateEmail(id,updClient.getEmail());
+        if (!client.getEmail().equals(updClient.getEmail())) {
+            clientRepository.updateEmail(id, updClient.getEmail());
             fields.add("email");
         }
-        if(!client.getAge().equals(updClient.getAge()) ){
-            clientRepository.updateAge(id,updClient.getAge());
+        if (!client.getAge().equals(updClient.getAge())) {
+            clientRepository.updateAge(id, updClient.getAge());
             fields.add("age");
         }
-        if(!(client.getEducated() == updClient.getEducated()) ){
-            clientRepository.updateEducated(id,updClient.getEducated());
+        if (!(client.getEducated() == updClient.getEducated())) {
+            clientRepository.updateEducated(id, updClient.getEducated());
             fields.add("educated");
         }
-        if(client.getBirth_date().compareTo(updClient.getBirth_date())!=0){
-            clientRepository.updateBirth_date(id,updClient.getBirth_date());
+        if (client.getBirth_date().compareTo(updClient.getBirth_date()) != 0) {
+            clientRepository.updateBirth_date(id, updClient.getBirth_date());
             fields.add("birth_date");
         }
-        if(!client.getGrowth().equals(updClient.getGrowth())){
-            clientRepository.updateGrowth(id,updClient.getGrowth());
+        if (!client.getGrowth().equals(updClient.getGrowth())) {
+            clientRepository.updateGrowth(id, updClient.getGrowth());
             fields.add("growth");
         }
-        return fields.isEmpty()
-                ? "Nothing have been changed"
-                : "Fields that have been updated:\n" + StringUtils.join(fields, '|');
+        if (fields.isEmpty()) {
+            logger.info("Nothing have been changed");
+            return "Nothing have been changed";
+        } else {
+            logger.info("Fields that have been updated:\n" + StringUtils.join(fields, '|'));
+            return "Fields that have been updated:\n" + StringUtils.join(fields, '|');
+        }
     }
 
     @DeleteMapping(value = "/clients/{id}")
     public String delete(@PathVariable(name = "id") Integer id) {
+        logger.info("Start deleting client with id="+id);
         Optional<Client> optionalClient = clientRepository.findById(id);
         if (optionalClient.isEmpty()) {
+            logger.info("Nothing have been changed");
             return "Nothing have been changed";
         } else {
             clientRepository.deleteById(id);
+            logger.info("The client have been deleted");
             return "The client have been deleted";
         }
     }
