@@ -1,0 +1,65 @@
+###
+GET http://localhost:8080/clients/
+
+<> 2021-01-14T165210.200.json
+<> 2021-01-14T161058.200.json
+###
+GET http://localhost:8080/clients/1
+
+<> 2021-01-14T161058-1.200.json
+###
+GET http://localhost:8080/clients/2
+
+<> 2021-01-14T161059.200.txt
+
+###
+POST http://localhost:8080/clients/addMany
+Content-Type: application/json
+
+[{
+  "name": "Artyom",
+  "email": "arti12354@psu.ru",
+  "age": 19,
+  "educated": "false",
+  "birth_date": "03.08.2001",
+  "growth": 1.83
+},{
+  "name": "Ilya",
+  "email": "ilyusha55@psu.ru",
+  "age": 32,
+  "educated": "true",
+  "birth_date": "15.12.1988",
+  "growth": 1.73
+}]
+###
+POST http://localhost:8080/clients/addOne
+Content-Type: application/json
+
+{
+  "name": "Kirill",
+  "email": "kirya1989@psu.ru",
+  "age": 31,
+  "educated": "true",
+  "birth_date": "11.10.1989",
+  "growth": 1.77
+}
+###
+DELETE http://localhost:8080/clients/6
+###
+PUT http://localhost:8080/clients/1
+Content-Type: application/json
+
+{
+  "name": "Micael",
+  "email": "micael123@psu.ru",
+  "age": 25,
+  "educated": "false",
+  "birth_date": "05.12.1995",
+  "growth": 1.80
+}
+
+<> 2021-01-14T182456.200.txt
+<> 2021-01-14T182441.200.txt
+
+###
+DELETE http://localhost:8080/clients/delAll

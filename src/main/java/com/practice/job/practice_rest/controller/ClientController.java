@@ -57,7 +57,7 @@ public class ClientController {
             return "Saved";
         } else {
             logger.info("Some errors were get:\n" + StringUtils.join(errors, '\n'));
-            return "Exepted errors:\n" + StringUtils.join(errors, '\n');
+            return "Excepted errors:\n" + StringUtils.join(errors, '\n');
         }
     }
 
@@ -69,7 +69,7 @@ public class ClientController {
         parserClient.FromString(clientString);
         String status = parserClient.getStatus();
         if (!status.equals("Ok")) {
-            logger.info("Client was not added. Errors:\n" + status);
+            logger.info("Client was not added.\n" + status);
             return status;
         } else {
             try {
@@ -85,8 +85,12 @@ public class ClientController {
 
     @GetMapping(path = "/")
     public @ResponseBody
-    Iterable<Client> getAllUsers() {
+    Object getAllUsers() {
         logger.info("Get all clients");
+        Iterable<Client> clients = clientRepository.findAll();
+        if (((ArrayList) clients).isEmpty()){
+            return "No clients in database";
+        }
         return clientRepository.findAll();
     }
 
@@ -150,14 +154,14 @@ public class ClientController {
             logger.info("Nothing have been changed");
             return "Nothing have been changed";
         } else {
-            logger.info("Fields that have been updated:\n" + StringUtils.join(fields, '|'));
+            logger.info("Fields that have been updated: " + StringUtils.join(fields, '|'));
             return "Fields that have been updated:\n" + StringUtils.join(fields, '|');
         }
     }
 
-    @DeleteMapping(value = "/clients/{id}")
+    @DeleteMapping(value = "/{id}")
     public String delete(@PathVariable(name = "id") Integer id) {
-        logger.info("Start deleting client with id="+id);
+        logger.info("Start deleting client with id=" + id);
         Optional<Client> optionalClient = clientRepository.findById(id);
         if (optionalClient.isEmpty()) {
             logger.info("Nothing have been changed");
@@ -167,5 +171,13 @@ public class ClientController {
             logger.info("The client have been deleted");
             return "The client have been deleted";
         }
+    }
+
+    @DeleteMapping(value = "/delAll")
+    public String delete() {
+        logger.info("Start deleting all clients");
+        clientRepository.deleteAll();
+        logger.info("Completed deleting all clients");
+        return "Successfully deleted all";
     }
 }

@@ -1,6 +1,5 @@
 package com.practice.job.practice_rest.model;
 
-
 import javax.persistence.*;
 import java.util.*;
 
@@ -9,15 +8,14 @@ import java.util.*;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private String name;
-    private String email;
-    private Integer age;
-    private Boolean educated;
+    private Integer         id;
+    private String          name;
+    private String          email;
+    private Integer         age;
+    private Boolean         educated;
     @Temporal(TemporalType.DATE)
-    private Date birth_date;
-    private Float growth;
-
+    private Date            birth_date;
+    private Float           growth;
 
     public Integer getId() {
         return id;
