@@ -183,6 +183,6 @@ public class ClientController {
         logger.info("Start deleting all clients");
         clientRepository.deleteAll();
         logger.info("Completed deleting all clients");
-        return "Successfully deleted all";
+        return "Successfully deleted all clients";
     }
 }

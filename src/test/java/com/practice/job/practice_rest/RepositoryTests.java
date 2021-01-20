@@ -198,4 +198,45 @@ public class RepositoryTests {
                 .andExpect(status().isOk())
                 .andExpect(content().string("Error: Data can not be parsed\nEmail not valid\nExample: \"name@example.com\"\nError: Data can not be parsed\nAge must be an integer\nExample: 25\nError: Data can not be parsed\nDate must be the \"dd.MM.yyyy\" format\nExample: \"09.09.1999\"\nError: Data can not be parsed\nGrowth must be in meters and have a fractional value.\nExample: \"1.59\"\nUnforeseeable error. Incorrect data detected"));
     }
+
+    @Test
+    @Order(12)
+    void postClientWithExistingEmail() throws Exception{
+        mvc.perform(post("/clients/addOne")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                        "name": "Mary",
+                        "email": "maryyyyyy@psu.ru",
+                        "age": 22,
+                        "educated": "false",
+                        "birth_date": "14.12.1998",
+                        "growth": 1.63
+                        }""".stripIndent()))
+                .andExpect(status().isOk());
+    }
+    @Test
+    @Order(13)
+    void updateClientChangeEmailToExistingEmail() throws Exception{
+        mvc.perform(put("/clients/4")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                        "name": "Mary",
+                        "email": "ilyusha55@psu.ru",
+                        "age": 22,
+                        "educated": "false",
+                        "birth_date": "14.12.1998",
+                        "growth": 1.63
+                        }""".stripIndent()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @Order(14)
+    void deleteAllClients() throws Exception{
+        mvc.perform(delete("/clients/delAll"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Successfully deleted all clients"));
+    }
 }

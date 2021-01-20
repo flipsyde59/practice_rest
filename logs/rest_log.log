@@ -10443,3 +10443,36 @@ java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'ilyusha55@ps
 2021-01-20 19:02:03.733  WARN 13576 --- [http-nio-8080-exec-1] o.h.e.j.s.SqlExceptionHelper             : SQL Error: 1062, SQLState: 23000
 2021-01-20 19:02:03.733 ERROR 13576 --- [http-nio-8080-exec-1] o.h.e.j.s.SqlExceptionHelper             : Duplicate entry 'ilyusha55@psu.ru' for key 'client.uk_email'
 2021-01-20 19:02:03.750  INFO 13576 --- [http-nio-8080-exec-1] c.p.j.p.c.ClientController               : Not update the client. Error: Duplicate entry 'ilyusha55@psu.ru' for key 'client.uk_email'
+2021-01-20 19:38:29.125  INFO 14356 --- [main] c.p.j.p.PracticeRestApplication          : Starting PracticeRestApplication using Java 15.0.1 on DESKTOP-56VJ2IM with PID 14356 (F:\Documents\visual studio 2013\Projects\java\practice_rest\target\classes started by flips in F:\Documents\visual studio 2013\Projects\java\practice_rest)
+2021-01-20 19:38:29.162  INFO 14356 --- [main] c.p.j.p.PracticeRestApplication          : No active profile set, falling back to default profiles: default
+2021-01-20 19:38:30.143  INFO 14356 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-01-20 19:38:30.279  INFO 14356 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 125 ms. Found 1 JPA repository interfaces.
+2021-01-20 19:38:31.112  INFO 14356 --- [main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8080 (http)
+2021-01-20 19:38:31.135  INFO 14356 --- [main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2021-01-20 19:38:31.136  INFO 14356 --- [main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-01-20 19:38:31.332  INFO 14356 --- [main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2021-01-20 19:38:31.333  INFO 14356 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2095 ms
+2021-01-20 19:38:31.547  INFO 14356 --- [main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-01-20 19:38:31.647  INFO 14356 --- [main] o.h.Version                              : HHH000412: Hibernate ORM core version 5.4.25.Final
+2021-01-20 19:38:32.223  INFO 14356 --- [main] o.h.a.c.Version                          : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-01-20 19:38:32.379  INFO 14356 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2021-01-20 19:38:33.455  INFO 14356 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2021-01-20 19:38:33.473  INFO 14356 --- [main] o.h.d.Dialect                            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-01-20 19:38:34.329  INFO 14356 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-01-20 19:38:34.341  INFO 14356 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-01-20 19:38:34.902  WARN 14356 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-01-20 19:38:35.061  INFO 14356 --- [main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2021-01-20 19:38:35.346  INFO 14356 --- [main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8080 (http) with context path ''
+2021-01-20 19:38:35.357  INFO 14356 --- [main] c.p.j.p.PracticeRestApplication          : Started PracticeRestApplication in 7.49 seconds (JVM running for 10.521)
+2021-01-20 19:38:57.905  INFO 14356 --- [http-nio-8080-exec-2] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-01-20 19:38:57.906  INFO 14356 --- [http-nio-8080-exec-2] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2021-01-20 19:38:57.908  INFO 14356 --- [http-nio-8080-exec-2] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
+2021-01-20 19:38:58.066  INFO 14356 --- [http-nio-8080-exec-2] c.p.j.p.c.ClientController               : Adding one client starts
+2021-01-20 19:38:58.254  WARN 14356 --- [http-nio-8080-exec-2] o.h.e.j.s.SqlExceptionHelper             : SQL Error: 1062, SQLState: 23000
+2021-01-20 19:38:58.255 ERROR 14356 --- [http-nio-8080-exec-2] o.h.e.j.s.SqlExceptionHelper             : Duplicate entry 'fdsfe@psu.ru' for key 'client.uk_email'
+2021-01-20 19:38:58.277  INFO 14356 --- [http-nio-8080-exec-2] c.p.j.p.c.ClientController               : Not added client. Error: Duplicate entry 'fdsfe@psu.ru' for key 'client.uk_email'
+2021-01-20 19:43:25.054  WARN 14356 --- [http-nio-8080-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+2021-01-20 19:43:31.043  INFO 14356 --- [http-nio-8080-exec-6] c.p.j.p.c.ClientController               : Starting update client with id=6
+2021-01-20 19:43:31.131  WARN 14356 --- [http-nio-8080-exec-6] o.h.e.j.s.SqlExceptionHelper             : SQL Error: 1062, SQLState: 23000
+2021-01-20 19:43:31.131 ERROR 14356 --- [http-nio-8080-exec-6] o.h.e.j.s.SqlExceptionHelper             : Duplicate entry 'ilyusha55@psu.ru' for key 'client.uk_email'
+2021-01-20 19:43:31.138  INFO 14356 --- [http-nio-8080-exec-6] c.p.j.p.c.ClientController               : Not update the client. Error: Duplicate entry 'ilyusha55@psu.ru' for key 'client.uk_email'
