@@ -1,20 +1,24 @@
 package com.practice.job.practice_rest;
+
 import com.practice.job.practice_rest.service.ClientRepository;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application.properties")
 @AutoConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RepositoryTests {
 
     @Autowired
@@ -24,27 +28,174 @@ public class RepositoryTests {
     private ClientRepository repository;
 
     @Test
-    public void simpleTest() throws Exception {
-        mvc.perform(get("/clients/6"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("name").value("Artyom"));
-                //andExpect(jsonPath("$.email").value("oleg1111@psu.ru"));
-    }
-
-    @Test
+    @Order(1)
     void getEmptyDBTest() throws Exception {
         mvc.perform(get("/clients/"))
-                .andExpect(status().isOk()).andExpect(content().string("No clients in database"));
+                .andExpect(status().isOk())
+                .andExpect(content().string("No clients in database"));
     }
-
-//    @Test
-//    void postManyTest(@Autowired MockMvc mvc) throws Exception {
-//        mvc.perform(post("/clients/addMany"));
-//    }
 
     @Test
-    void getNotEmptyDBTest() throws Exception{
-        mvc.perform(get("/clients/")).andExpect(status().isOk()).andExpect(content().json("[{\"id\":1,\"name\": \"Artyom\",\"email\": \"arti12354@psu.ru\",\"age\": 19,\"educated\": \"false\",\"birth_date\": \"03.08.2001\",\"growth\": 1.83},{{\"id\":1,\"name\": \"Ilya\",\"email\": \"ilyusha55@psu.ru\",\"age\": 32,\"educated\": \"true\",\"birth_date\": \"15.12.1988\",\"growth\": 1.73}]"));
+    @Order(2)
+    void postManyTest() throws Exception {
+        mvc.perform(post("/clients/addMany")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        [{
+                        "name":"Micael",
+                        "email":"micael123@psu.ru",
+                        "age":25,"educated":false,
+                        "birth_date":"05.12.1995",
+                        "growth":1.8
+                        },
+                        {
+                        "name":"Kate",
+                        "email":"katekitty@psu.ru",
+                        "age":18,"educated":false,
+                        "birth_date":"19.05.2002",
+                        "growth":1.55
+                        },
+                        {
+                        "name":"Oleg",
+                        "email":"oleg1111@psu.ru",
+                        "age":22,
+                        "educated":true,
+                        "birth_date":"20.06.1998",
+                        "growth":1.95
+                        }]""".stripIndent()))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Saved"));
     }
 
+    @Test
+    @Order(3)
+    void postOneTest() throws Exception {
+        mvc.perform(post("/clients/addOne")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                        "name": "Ilya",
+                        "email": "ilyusha55@psu.ru",
+                        "age": 32,
+                        "educated": "true",
+                        "birth_date": "15.12.1988",
+                        "growth": 1.73
+                        }""".stripIndent()))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Saved"));
+    }
+
+    @Test
+    @Order(4)
+    void getNotEmptyDBTest() throws Exception {
+        mvc.perform(get("/clients/"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    @Order(5)
+    void deleteExistingClientById() throws Exception{
+        mvc.perform(delete("/clients/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The client have been deleted"));
+    }
+
+    @Test
+    @Order(6)
+    void deleteNotExistingClientById() throws Exception{
+        mvc.perform(delete("/clients/22"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Nothing have been changed"));
+    }
+
+    @Test
+    @Order(7)
+    void updateExistingClientById() throws Exception{
+        mvc.perform(put("/clients/4")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                        "name": "Mary",
+                        "email": "maryyyyyy@psu.ru",
+                        "age": 22,
+                        "educated": "false",
+                        "birth_date": "14.12.1998",
+                        "growth": 1.63
+                        }""".stripIndent()))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Fields that have been updated:\nname|email|age|educated|birth_date|growth"));
+    }
+
+    @Test
+    @Order(8)
+    void updateExistingClientByIdWithoutChange() throws Exception{
+        mvc.perform(put("/clients/4")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                        "name": "Mary",
+                        "email": "maryyyyyy@psu.ru",
+                        "age": 22,
+                        "educated": "false",
+                        "birth_date": "14.12.1998",
+                        "growth": 1.63
+                        }""".stripIndent()))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Nothing have been changed"));
+    }
+
+    @Test
+    @Order(9)
+    void updateNotExistingClientById() throws Exception{
+        mvc.perform(put("/clients/22")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                        "name": "Mary",
+                        "email": "maryyyyyy@psu.ru",
+                        "age": 22,
+                        "educated": "false",
+                        "birth_date": "14.12.1998",
+                        "growth": 1.63
+                        }""".stripIndent()))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Client with that id=22 not found"));
+    }
+
+    @Test
+    @Order(10)
+    void updateClientByIdWithErrorsInData() throws Exception{
+        mvc.perform(put("/clients/4")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                        "name": "Mary",
+                        "email": "maryyyyy.y@..psu@.ru",
+                        "age": "2fff2",
+                        "educated": "false",
+                        "birth_date": "1--4.1--2.1-998",
+                        "growth": "1.6vghj3"
+                        }""".stripIndent()))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Error: Data can not be parsed\nEmail not valid\nExample: \"name@example.com\"\nError: Data can not be parsed\nAge must be an integer\nExample: 25\nError: Data can not be parsed\nDate must be the \"dd.MM.yyyy\" format\nExample: \"09.09.1999\"\nError: Data can not be parsed\nGrowth must be in meters and have a fractional value.\nExample: \"1.59\"\nUnforeseeable error. Incorrect data detected"));
+    }
+
+    @Test
+    @Order(11)
+    void postClientWithErrorsInData() throws Exception{
+        mvc.perform(post("/clients/addOne")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                        "name": "Mary",
+                        "email": "maryyyyy.y@..psu@.ru",
+                        "age": "2fff2",
+                        "educated": "false",
+                        "birth_date": "1--4.1--2.1-998",
+                        "growth": "1.6vghj3"
+                        }""".stripIndent()))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Error: Data can not be parsed\nEmail not valid\nExample: \"name@example.com\"\nError: Data can not be parsed\nAge must be an integer\nExample: 25\nError: Data can not be parsed\nDate must be the \"dd.MM.yyyy\" format\nExample: \"09.09.1999\"\nError: Data can not be parsed\nGrowth must be in meters and have a fractional value.\nExample: \"1.59\"\nUnforeseeable error. Incorrect data detected"));
+    }
 }

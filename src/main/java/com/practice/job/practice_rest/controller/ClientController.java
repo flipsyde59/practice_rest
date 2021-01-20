@@ -96,7 +96,7 @@ public class ClientController {
 
     @GetMapping(value = "/{id}")
     public @ResponseBody
-    ResponseEntity<?> read(@PathVariable(name = "id") Integer id) {
+    ResponseEntity<?> getClientById(@PathVariable(name = "id") Integer id) {
         Optional<Client> optionalClient = clientRepository.findById(id);
         if (optionalClient.isEmpty()) {
             logger.info("Get one client with not existing id=" + id);
@@ -109,18 +109,18 @@ public class ClientController {
 
     @PutMapping(value = "/{id}")
     public @ResponseBody
-    String update(@PathVariable(name = "id") Integer id, @RequestBody ClientString clientString) {
+    String updateClientById(@PathVariable(name = "id") Integer id, @RequestBody ClientString clientString) {
         logger.info("Starting update client with id=" + id);
         Optional<Client> optionalClient = clientRepository.findById(id);
         if (optionalClient.isEmpty()) {
             logger.info("Client with that id=" + id + " not found");
-            return "Client with that id " + id + " not found";
+            return "Client with that id=" + id + " not found";
         }
         ParserClient parserClient = new ParserClient();
         parserClient.FromString(clientString);
         String status = parserClient.getStatus();
         if (!status.equals("Ok")) {
-            logger.info("Client was not updated. Errors:\n" + status);
+            logger.info("Client was not updated.\n" + status);
             return status;
         }
         Client updClient = parserClient.getClient();
@@ -131,7 +131,12 @@ public class ClientController {
             fields.add("name");
         }
         if (!client.getEmail().equals(updClient.getEmail())) {
-            clientRepository.updateEmail(id, updClient.getEmail());
+            try {
+                clientRepository.updateEmail(id, updClient.getEmail());
+            } catch (DataIntegrityViolationException e) {
+                logger.info("Not update the client. Error: " + e.getMostSpecificCause().getMessage());
+                return "Not updated\nError: " + e.getMostSpecificCause().getMessage();
+            }
             fields.add("email");
         }
         if (!client.getAge().equals(updClient.getAge())) {
@@ -160,7 +165,7 @@ public class ClientController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public String delete(@PathVariable(name = "id") Integer id) {
+    public String deleteClientById(@PathVariable(name = "id") Integer id) {
         logger.info("Start deleting client with id=" + id);
         Optional<Client> optionalClient = clientRepository.findById(id);
         if (optionalClient.isEmpty()) {
@@ -174,7 +179,7 @@ public class ClientController {
     }
 
     @DeleteMapping(value = "/delAll")
-    public String delete() {
+    public String deleteAllClients() {
         logger.info("Start deleting all clients");
         clientRepository.deleteAll();
         logger.info("Completed deleting all clients");
