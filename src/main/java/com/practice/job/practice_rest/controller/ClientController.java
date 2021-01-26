@@ -1,9 +1,9 @@
 package com.practice.job.practice_rest.controller;
 
 import com.practice.job.practice_rest.model.Client;
-import com.practice.job.practice_rest.service.ClientRepository;
-import com.practice.job.practice_rest.service.ClientString;
-import com.practice.job.practice_rest.service.ParserClient;
+import com.practice.job.practice_rest.service.client.ClientRepository;
+import com.practice.job.practice_rest.service.client.ClientString;
+import com.practice.job.practice_rest.service.client.ParserClient;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @Controller
 @RestController
-@RequestMapping(path = "/clients")
+@RequestMapping(path = "/rest/clients")
 public class ClientController {
 
     Logger logger = LoggerFactory.getLogger(ClientController.class);

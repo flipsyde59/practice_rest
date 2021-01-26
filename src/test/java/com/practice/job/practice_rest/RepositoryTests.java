@@ -1,6 +1,6 @@
 package com.practice.job.practice_rest;
 
-import com.practice.job.practice_rest.service.ClientRepository;
+import com.practice.job.practice_rest.service.client.ClientRepository;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

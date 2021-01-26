@@ -63,3 +63,13 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8080/clients/delAll
+
+###
+POST http://localhost:8080/users/create
+Content-Type: application/json
+
+{
+  "login": "user",
+  "password": "password",
+  "role": "admin"
+}
