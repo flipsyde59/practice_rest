@@ -1,11 +1,13 @@
 package com.practice.job.practice_rest.model;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"type"}, name="role_type")})
-public class Role {
+public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -17,8 +19,8 @@ public class Role {
         return id;
     }
 
-    public String getType() {
+    @Override
+    public String getAuthority() {
         return type;
     }
-
 }

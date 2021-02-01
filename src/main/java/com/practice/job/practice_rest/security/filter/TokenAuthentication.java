@@ -29,12 +29,8 @@ public class TokenAuthentication implements Authentication {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    public Collection<Role> getRoles() {
-        return this.authorities;
+    public Collection<Role> getAuthorities() {
+        return authorities;
     }
 
     @Override

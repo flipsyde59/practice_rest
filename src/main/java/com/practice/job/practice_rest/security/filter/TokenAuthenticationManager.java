@@ -2,12 +2,14 @@ package com.practice.job.practice_rest.security.filter;
 
 import com.practice.job.practice_rest.model.Role;
 import com.practice.job.practice_rest.model.User;
+import com.practice.job.practice_rest.security.token.GetTokenServiceImpl;
 import com.practice.job.practice_rest.service.user.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
@@ -63,5 +65,14 @@ public class TokenAuthenticationManager implements AuthenticationManager {
 
     public void setUserDetailsService(UserRepository repository) {
         this.userDetailsService = repository;
+    }
+
+    public String createToken(String username, String password){
+        User user = userDetailsService.findByLogin(username);
+        if (user == null) {
+            return "Error: Not found user with login=" + username;
+        }
+        GetTokenServiceImpl getterToken = new GetTokenServiceImpl();
+        return getterToken.getToken(username, password, user);
     }
 }
