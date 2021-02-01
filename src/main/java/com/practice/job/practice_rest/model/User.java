@@ -22,8 +22,10 @@ public class User {
     private String login;
     private byte[] salt = new byte[16];
     private byte[] hash;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(name="user_role",joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST) //организация связи многие ко многим EAGER это что б можно было получить значение
+    @JoinTable(name="user_role",joinColumns =                           //связ идет через таблицу user_role
+    @JoinColumn(name = "user_id"),inverseJoinColumns =                  //колонка которая связвыает таблицу user с user_role
+    @JoinColumn(name = "role_id"))                                      //связь через эту колонку идет к таблице role
     private List<Role> role;
 
     public User(String login, String password, Role role) throws InvalidKeySpecException, NoSuchAlgorithmException {

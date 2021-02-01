@@ -19,6 +19,7 @@ import java.util.Locale;
 
 @Controller
 @RestController
+@ResponseBody
 public class UserController {
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -29,7 +30,7 @@ public class UserController {
     private RoleRepository roleRepository;
 
     @PostMapping(path = "/rest/users/create")
-    public @ResponseBody
+    public
     String createUser(@RequestBody UserData newUser) {
         logger.info("Creating user start");
         try {
@@ -59,7 +60,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/getToken")
-    public @ResponseBody
+    public
     String getToken(@RequestBody UserData newUser) {
         logger.info("Getting token for user: "+newUser.getLogin()+" start");
         User user = userRepository.findByLogin(newUser.getLogin());
