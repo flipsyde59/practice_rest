@@ -2,7 +2,6 @@ package com.practice.job.practice_rest.controller;
 
 import com.practice.job.practice_rest.model.Role;
 import com.practice.job.practice_rest.model.User;
-import com.practice.job.practice_rest.security.filter.TokenAuthenticationManager;
 import com.practice.job.practice_rest.security.token.GetTokenServiceImpl;
 import com.practice.job.practice_rest.service.role.RoleRepository;
 import com.practice.job.practice_rest.service.user.UserData;
@@ -63,8 +62,13 @@ public class UserController {
     public @ResponseBody
     String getToken(@RequestBody UserData newUser) {
         logger.info("Getting token for user: "+newUser.getLogin()+" start");
-        TokenAuthenticationManager tokenAuthenticationManager=new TokenAuthenticationManager();
-        String t = tokenAuthenticationManager.createToken(newUser.getLogin(), newUser.getPassword());
+        User user = userRepository.findByLogin(newUser.getLogin());
+        if (user==null) {
+            logger.info("Not fount user with login="+newUser.getLogin());
+            return "Not fount user with login="+newUser.getLogin();
+        }
+        GetTokenServiceImpl getterToken = new GetTokenServiceImpl();
+        String t = getterToken.getToken(newUser.getLogin(), newUser.getPassword(), user);
         if (t.toLowerCase(Locale.ROOT).contains("error")){
             logger.info("Token not create, error: "+t);
             return t;
