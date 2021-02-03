@@ -2,8 +2,13 @@ package com.practice.job.practice_rest.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import java.util.*;
 
 @Entity
@@ -12,19 +17,24 @@ import java.util.*;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer         id;
+    private Integer id;
     @Setter
-    private String          name;
+    private String name;
     @Setter
-    private String          email;
+    @Pattern(regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$",
+            message = "Error: Data can not be parsed\nEmail not valid\nExample: \"name@example.com\"")
+    private String email;
     @Setter
-    private Integer         age;
+    @Digits(integer=3, fraction=0, message = "Не более 3-х знаков")
+    private Integer age;
     @Setter
-    private Boolean         educated;
+    private Boolean educated;
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat
     @Setter
-    private Date            birth_date;
+    private Date birth_date;
     @Setter
-    private Float           growth;
+    @DecimalMax("3.00")
+    private Float growth;
 
 }

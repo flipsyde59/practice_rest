@@ -7,6 +7,7 @@ import com.practice.job.practice_rest.service.client.ParserClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,7 +27,14 @@ public class ClientController {
     Logger logger = LoggerFactory.getLogger(ClientController.class);
     @Autowired
     private ClientService clientService;
-
+//    @PostMapping(path = "/addOnes")
+//    public @ResponseBody
+//    String addNewClientt(@RequestBody Client client) {
+//        logger.info("Adding one client starts");
+//        String result = clientService.addNewClient(client);
+//        logger.info(result);
+//        return result;
+//    }
     @PreAuthorize("hasAuthority('admin')")
     @PostMapping(path = "/addMany")
     public @ResponseBody

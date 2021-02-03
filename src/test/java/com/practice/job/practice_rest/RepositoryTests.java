@@ -28,6 +28,22 @@ public class RepositoryTests {
     private ClientRepository repository;
 
     @Test
+    void posting() throws Exception{
+        mvc.perform(post("/rest/clients/addOnes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                        "name": "Ilya",
+                        "email": "ilyusha55@psu.ru",
+                        "age": 32,
+                        "educated": "true",
+                        "birth_date": "1988-12-15",
+                        "growth": 1.73
+                        }""".stripIndent()))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Client was added"));
+    }
+    @Test
     @Order(1)
     void getEmptyDBTest() throws Exception {
         mvc.perform(get("/rest/clients/"))
@@ -45,14 +61,14 @@ public class RepositoryTests {
                         "name":"Micael",
                         "email":"micael123@psu.ru",
                         "age":25,"educated":false,
-                        "birth_date":"05.12.1995",
+                        "birth_date":"1995-12-05",
                         "growth":1.8
                         },
                         {
                         "name":"Kate",
                         "email":"katekitty@psu.ru",
                         "age":18,"educated":false,
-                        "birth_date":"19.05.2002",
+                        "birth_date":"2002-05-19",
                         "growth":1.55
                         },
                         {
@@ -60,7 +76,7 @@ public class RepositoryTests {
                         "email":"oleg1111@psu.ru",
                         "age":22,
                         "educated":true,
-                        "birth_date":"20.06.1998",
+                        "birth_date":"1998-06-20",
                         "growth":1.95
                         }]""".stripIndent()))
                 .andExpect(status().isOk())
@@ -78,7 +94,7 @@ public class RepositoryTests {
                         "email": "ilyusha55@psu.ru",
                         "age": 32,
                         "educated": "true",
-                        "birth_date": "15.12.1988",
+                        "birth_date": "1988-12-15",
                         "growth": 1.73
                         }""".stripIndent()))
                 .andExpect(status().isOk())
@@ -120,7 +136,7 @@ public class RepositoryTests {
                         "email": "maryyyyyy@psu.ru",
                         "age": 22,
                         "educated": "false",
-                        "birth_date": "14.12.1998",
+                        "birth_date": "1998-12-14"
                         "growth": 1.63
                         }""".stripIndent()))
                 .andExpect(status().isOk())
@@ -138,7 +154,7 @@ public class RepositoryTests {
                         "email": "maryyyyyy@psu.ru",
                         "age": 22,
                         "educated": "false",
-                        "birth_date": "14.12.1998",
+                        "birth_date": "1998-12-14",
                         "growth": 1.63
                         }""".stripIndent()))
                 .andExpect(status().isOk())
@@ -156,7 +172,7 @@ public class RepositoryTests {
                         "email": "maryyyyyy@psu.ru",
                         "age": 22,
                         "educated": "false",
-                        "birth_date": "14.12.1998",
+                        "birth_date": "1998-12-14",
                         "growth": 1.63
                         }""".stripIndent()))
                 .andExpect(status().isOk())
@@ -210,7 +226,7 @@ public class RepositoryTests {
                         "email": "maryyyyyy@psu.ru",
                         "age": 22,
                         "educated": "false",
-                        "birth_date": "14.12.1998",
+                        "birth_date": "1998-12-14",
                         "growth": 1.63
                         }""".stripIndent()))
                 .andExpect(status().isOk());
@@ -226,7 +242,7 @@ public class RepositoryTests {
                         "email": "ilyusha55@psu.ru",
                         "age": 22,
                         "educated": "false",
-                        "birth_date": "14.12.1998",
+                        "birth_date": "1998-12-14",
                         "growth": 1.63
                         }""".stripIndent()))
                 .andExpect(status().isOk());
