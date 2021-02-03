@@ -30,7 +30,7 @@ public class Client {
     @Setter
     private Boolean educated;
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat
+    //@DateTimeFormat
     @Setter
     private Date birth_date;
     @Setter

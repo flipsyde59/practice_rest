@@ -27,22 +27,22 @@ public class RepositoryTests {
     @Autowired
     private ClientRepository repository;
 
-    @Test
-    void posting() throws Exception{
-        mvc.perform(post("/rest/clients/addOnes")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        {
-                        "name": "Ilya",
-                        "email": "ilyusha55@psu.ru",
-                        "age": 32,
-                        "educated": "true",
-                        "birth_date": "1988-12-15",
-                        "growth": 1.73
-                        }""".stripIndent()))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Client was added"));
-    }
+//    @Test
+//    void posting() throws Exception{
+//        mvc.perform(post("/rest/clients/addOnes")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content("""
+//                        {
+//                        "name": "Ilya",
+//                        "email": "ilyusha55@psu.ru",
+//                        "age": 32,
+//                        "educated": "true",
+//                        "birth_date": "1988-12-15",
+//                        "growth": 1.73
+//                        }""".stripIndent()))
+//                .andExpect(status().isOk())
+//                .andExpect(content().string("Client was added"));
+//    }
     @Test
     @Order(1)
     void getEmptyDBTest() throws Exception {
@@ -136,7 +136,7 @@ public class RepositoryTests {
                         "email": "maryyyyyy@psu.ru",
                         "age": 22,
                         "educated": "false",
-                        "birth_date": "1998-12-14"
+                        "birth_date": "1998-12-14",
                         "growth": 1.63
                         }""".stripIndent()))
                 .andExpect(status().isOk())

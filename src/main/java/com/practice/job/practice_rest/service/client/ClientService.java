@@ -15,30 +15,23 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
-    public String addNewClients(List<ClientString> clients, Logger logger){
+    public String addNewClients(List<Client> clients){
         List<String> errors = new ArrayList<>();
-        for (ClientString clientString : clients) {
-            ParserClient parserClient = new ParserClient();
-            parserClient.FromString(clientString);
-            String status = parserClient.getStatus();
-            String email = clientString.getEmail();
-            if (!status.equals("Ok")) {
-                errors.add("For client with email: " + email + "\n" + status);
-                logger.info("Not added client with email=" + email + "\n" + status);
-            } else {
-                try {
-                    clientRepository.save(parserClient.getClient());
-                    logger.info("Client with email=" + email + " was added");
-                } catch (Exception e) {
-                    logger.info("Not added client with email=" + email);
-                    errors.add("For client with email: " + email + " not saved\nError: "+status);
-                }
+        List<String> success = new ArrayList<>();
+        for (Client client : clients) {
+            String email = client.getEmail();
+            try {
+                clientRepository.save(client);
+                success.add("Client with email=" + email + " was added");
+            } catch (Exception e) {
+                success.add("Not added client with email=" + email);
+                errors.add("Not added client with email=" + email);
             }
         }
         if (errors.isEmpty()) {
-            return "All clients were added";
+            return StringUtils.join(success, '\n') + "\nAll clients were added";
         }
-        return "Excepted errors:\n" + StringUtils.join(errors, '\n');
+        return StringUtils.join(success, '\n') + "Excepted errors:\n" + StringUtils.join(errors, '\n');
     }
     public String addNewClient(Client client){
         try {

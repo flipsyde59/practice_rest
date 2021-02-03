@@ -2,21 +2,16 @@ package com.practice.job.practice_rest.controller;
 
 import com.practice.job.practice_rest.model.Client;
 import com.practice.job.practice_rest.service.client.ClientService;
-import com.practice.job.practice_rest.service.client.ClientString;
-import com.practice.job.practice_rest.service.client.ParserClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @Controller
@@ -38,9 +33,9 @@ public class ClientController {
     @PreAuthorize("hasAuthority('admin')")
     @PostMapping(path = "/addMany")
     public @ResponseBody
-    String addNewClients(@RequestBody List<ClientString> clients) {
+    String addNewClients(@RequestBody List<Client> clients) {
         logger.info("Adding many clients starts");
-        String result = clientService.addNewClients(clients, logger);
+        String result = clientService.addNewClients(clients);
         logger.info(result);
         return result;
     }
@@ -48,16 +43,9 @@ public class ClientController {
     @PreAuthorize("hasAuthority('admin')")
     @PostMapping(path = "/addOne")
     public @ResponseBody
-    String addNewClient(@RequestBody ClientString clientString) {
+    String addNewClient(@RequestBody Client client) {
         logger.info("Adding one client starts");
-        ParserClient parserClient = new ParserClient();
-        parserClient.FromString(clientString);
-        String status = parserClient.getStatus();
-        if (!status.equals("Ok")) {
-            logger.info("Client was not added.\n" + status);
-            return status;
-        }
-        String result = clientService.addNewClient(parserClient.getClient());
+        String result = clientService.addNewClient(client);
         logger.info(result);
         return result;
     }
@@ -84,16 +72,9 @@ public class ClientController {
     @PreAuthorize("hasAuthority('admin')")
     @PutMapping(value = "/{id}")
     public @ResponseBody
-    String updateClientById(@PathVariable(name = "id") Integer id, @RequestBody ClientString clientString) {
+    String updateClientById(@PathVariable(name = "id") Integer id, @RequestBody Client client) {
         logger.info("Starting update client with id=" + id);
-        ParserClient parserClient = new ParserClient();
-        parserClient.FromString(clientString);
-        String status = parserClient.getStatus();
-        if (!status.equals("Ok")) {
-            logger.info("Client was not updated.\n" + status);
-            return status;
-        }
-        String result = clientService.updateClientById(id, parserClient.getClient());
+        String result = clientService.updateClientById(id, client);
         logger.info(result);
         return result;
     }
