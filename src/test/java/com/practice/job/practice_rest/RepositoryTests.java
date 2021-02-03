@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application.properties")
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RepositoryTests {
 
@@ -30,7 +30,7 @@ public class RepositoryTests {
     @Test
     @Order(1)
     void getEmptyDBTest() throws Exception {
-        mvc.perform(get("/clients/"))
+        mvc.perform(get("/rest/clients/"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("No clients in database"));
     }
@@ -38,7 +38,7 @@ public class RepositoryTests {
     @Test
     @Order(2)
     void postManyTest() throws Exception {
-        mvc.perform(post("/clients/addMany")
+        mvc.perform(post("/rest/clients/addMany")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         [{
@@ -64,13 +64,13 @@ public class RepositoryTests {
                         "growth":1.95
                         }]""".stripIndent()))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Saved"));
+                .andExpect(content().string("All clients were added"));
     }
 
     @Test
     @Order(3)
     void postOneTest() throws Exception {
-        mvc.perform(post("/clients/addOne")
+        mvc.perform(post("/rest/clients/addOne")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
@@ -82,13 +82,13 @@ public class RepositoryTests {
                         "growth": 1.73
                         }""".stripIndent()))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Saved"));
+                .andExpect(content().string("Client was added"));
     }
 
     @Test
     @Order(4)
     void getNotEmptyDBTest() throws Exception {
-        mvc.perform(get("/clients/"))
+        mvc.perform(get("/rest/clients/"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
@@ -96,7 +96,7 @@ public class RepositoryTests {
     @Test
     @Order(5)
     void deleteExistingClientById() throws Exception{
-        mvc.perform(delete("/clients/1"))
+        mvc.perform(delete("/rest/clients/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("The client have been deleted"));
     }
@@ -104,7 +104,7 @@ public class RepositoryTests {
     @Test
     @Order(6)
     void deleteNotExistingClientById() throws Exception{
-        mvc.perform(delete("/clients/22"))
+        mvc.perform(delete("/rest/clients/22"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Nothing have been changed"));
     }
@@ -112,7 +112,7 @@ public class RepositoryTests {
     @Test
     @Order(7)
     void updateExistingClientById() throws Exception{
-        mvc.perform(put("/clients/4")
+        mvc.perform(put("/rest/clients/4")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
@@ -130,7 +130,7 @@ public class RepositoryTests {
     @Test
     @Order(8)
     void updateExistingClientByIdWithoutChange() throws Exception{
-        mvc.perform(put("/clients/4")
+        mvc.perform(put("/rest/clients/4")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
@@ -148,7 +148,7 @@ public class RepositoryTests {
     @Test
     @Order(9)
     void updateNotExistingClientById() throws Exception{
-        mvc.perform(put("/clients/22")
+        mvc.perform(put("/rest/clients/22")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
@@ -166,7 +166,7 @@ public class RepositoryTests {
     @Test
     @Order(10)
     void updateClientByIdWithErrorsInData() throws Exception{
-        mvc.perform(put("/clients/4")
+        mvc.perform(put("/rest/clients/4")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
@@ -184,7 +184,7 @@ public class RepositoryTests {
     @Test
     @Order(11)
     void postClientWithErrorsInData() throws Exception{
-        mvc.perform(post("/clients/addOne")
+        mvc.perform(post("/rest/clients/addOne")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
@@ -202,7 +202,7 @@ public class RepositoryTests {
     @Test
     @Order(12)
     void postClientWithExistingEmail() throws Exception{
-        mvc.perform(post("/clients/addOne")
+        mvc.perform(post("/rest/clients/addOne")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
@@ -218,7 +218,7 @@ public class RepositoryTests {
     @Test
     @Order(13)
     void updateClientChangeEmailToExistingEmail() throws Exception{
-        mvc.perform(put("/clients/4")
+        mvc.perform(put("/rest/clients/4")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
@@ -235,7 +235,7 @@ public class RepositoryTests {
     @Test
     @Order(14)
     void deleteAllClients() throws Exception{
-        mvc.perform(delete("/clients/delAll"))
+        mvc.perform(delete("/rest/clients/delAll"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Successfully deleted all clients"));
     }

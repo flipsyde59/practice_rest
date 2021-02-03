@@ -3,7 +3,6 @@ package com.practice.job.practice_rest.security.filter;
 import com.practice.job.practice_rest.model.Role;
 import com.practice.job.practice_rest.model.User;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 

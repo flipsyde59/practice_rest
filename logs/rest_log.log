@@ -30,3 +30,145 @@
 2021-02-01 16:44:33.428  INFO 2588 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2021-02-01 16:44:33.433  INFO 2588 --- [SpringContextShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
 2021-02-01 16:44:33.447  INFO 2588 --- [SpringContextShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2021-02-01 16:44:42.009  INFO 13452 --- [main] c.p.j.p.PracticeRestApplication          : Starting PracticeRestApplication using Java 15.0.1 on Flip-pc with PID 13452 (F:\Documents\Projects\java\practice_rest\target\classes started by flips in F:\Documents\Projects\java\practice_rest)
+2021-02-01 16:44:42.024  INFO 13452 --- [main] c.p.j.p.PracticeRestApplication          : No active profile set, falling back to default profiles: default
+2021-02-01 16:44:42.993  INFO 13452 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-02-01 16:44:43.088  INFO 13452 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 84 ms. Found 3 JPA repository interfaces.
+2021-02-01 16:44:43.518  INFO 13452 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@235d29d6' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-02-01 16:44:43.527  INFO 13452 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-02-01 16:44:43.838  INFO 13452 --- [main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8080 (http)
+2021-02-01 16:44:43.850  INFO 13452 --- [main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2021-02-01 16:44:43.851  INFO 13452 --- [main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-02-01 16:44:44.010  INFO 13452 --- [main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2021-02-01 16:44:44.011  INFO 13452 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1915 ms
+2021-02-01 16:44:44.107  WARN 13452 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-01 16:44:44.236  INFO 13452 --- [main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-01 16:44:44.298  INFO 13452 --- [main] o.h.Version                              : HHH000412: Hibernate ORM core version 5.4.25.Final
+2021-02-01 16:44:44.442  INFO 13452 --- [main] o.h.a.c.Version                          : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-01 16:44:44.560  INFO 13452 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2021-02-01 16:44:45.019  INFO 13452 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2021-02-01 16:44:45.038  INFO 13452 --- [main] o.h.d.Dialect                            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-01 16:44:45.991  INFO 13452 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-01 16:44:46.002  INFO 13452 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-01 16:44:46.839  INFO 13452 --- [main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@510e6b93, org.springframework.security.web.context.SecurityContextPersistenceFilter@204a02a4, org.springframework.security.web.header.HeaderWriterFilter@2cc9a948, org.springframework.security.web.authentication.logout.LogoutFilter@591ba330, com.practice.job.practice_rest.security.filter.TokenAuthenticationFilter@33a8f553, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1b96d447, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@430f0c63, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@129e45eb, org.springframework.security.web.session.SessionManagementFilter@1cc81ea1, org.springframework.security.web.access.ExceptionTranslationFilter@54b96813, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2665a2e7]
+2021-02-01 16:44:47.012  INFO 13452 --- [main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-01 16:44:47.317  INFO 13452 --- [main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-01 16:44:47.330  INFO 13452 --- [main] c.p.j.p.PracticeRestApplication          : Started PracticeRestApplication in 6.21 seconds (JVM running for 8.341)
+2021-02-01 17:28:39.407  INFO 13452 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-01 17:28:39.409  INFO 13452 --- [http-nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2021-02-01 17:28:39.420  INFO 13452 --- [http-nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 11 ms
+2021-02-01 17:28:39.448  INFO 13452 --- [http-nio-8080-exec-1] c.p.j.p.s.f.TokenAuthenticationFilter    : Header token is not found.
+2021-02-01 17:28:39.458  INFO 13452 --- [http-nio-8080-exec-1] c.p.j.p.s.f.TokenAuthenticationFilter    : Creating token for user: user start
+2021-02-01 17:28:40.003  INFO 13452 --- [http-nio-8080-exec-1] c.p.j.p.s.f.TokenAuthenticationFilter    : Token for user: user created
+2021-02-01 17:28:40.123  INFO 13452 --- [http-nio-8080-exec-1] c.p.j.p.s.f.TokenAuthenticationFilter    : Header token is not found.
+2021-02-01 17:28:40.124  INFO 13452 --- [http-nio-8080-exec-1] c.p.j.p.s.f.TokenAuthenticationFilter    : Creating token for user: user start
+2021-02-01 17:28:40.327  INFO 13452 --- [http-nio-8080-exec-1] c.p.j.p.s.f.TokenAuthenticationFilter    : Token for user: user created
+2021-02-01 17:28:54.262  INFO 13452 --- [http-nio-8080-exec-3] c.p.j.p.s.f.TokenAuthenticationFilter    : Header token is not found.
+2021-02-01 17:28:54.263  INFO 13452 --- [http-nio-8080-exec-3] c.p.j.p.s.f.TokenAuthenticationFilter    : Creating token for user: user start
+2021-02-01 17:28:54.475  INFO 13452 --- [http-nio-8080-exec-3] c.p.j.p.s.f.TokenAuthenticationFilter    : Token for user: user created
+2021-02-01 17:28:54.485  INFO 13452 --- [http-nio-8080-exec-3] c.p.j.p.s.f.TokenAuthenticationFilter    : Header token is not found.
+2021-02-01 17:28:54.486  INFO 13452 --- [http-nio-8080-exec-3] c.p.j.p.s.f.TokenAuthenticationFilter    : Creating token for user: user start
+2021-02-01 17:28:54.722  INFO 13452 --- [http-nio-8080-exec-3] c.p.j.p.s.f.TokenAuthenticationFilter    : Token for user: user created
+2021-02-01 17:28:54.787  INFO 13452 --- [http-nio-8080-exec-3] c.p.j.p.c.ClientController               : Adding one client starts
+2021-02-01 17:28:55.045  WARN 13452 --- [http-nio-8080-exec-3] o.h.e.j.s.SqlExceptionHelper             : SQL Error: 1062, SQLState: 23000
+2021-02-01 17:28:55.045 ERROR 13452 --- [http-nio-8080-exec-3] o.h.e.j.s.SqlExceptionHelper             : Duplicate entry 'arthur555@psu.ru' for key 'client.uk_email'
+2021-02-01 17:28:55.070  INFO 13452 --- [http-nio-8080-exec-3] c.p.j.p.c.ClientController               : Not added client. Error: Duplicate entry 'arthur555@psu.ru' for key 'client.uk_email'
+2021-02-01 17:30:28.869  INFO 13452 --- [http-nio-8080-exec-6] c.p.j.p.s.f.TokenAuthenticationFilter    : Header token is not found.
+2021-02-01 17:30:28.869  INFO 13452 --- [http-nio-8080-exec-6] c.p.j.p.s.f.TokenAuthenticationFilter    : Creating token for user: user start
+2021-02-01 17:30:29.110  INFO 13452 --- [http-nio-8080-exec-6] c.p.j.p.s.f.TokenAuthenticationFilter    : Token for user: user created
+2021-02-01 17:30:29.118  INFO 13452 --- [http-nio-8080-exec-6] c.p.j.p.s.f.TokenAuthenticationFilter    : Header token is not found.
+2021-02-01 17:30:29.118  INFO 13452 --- [http-nio-8080-exec-6] c.p.j.p.s.f.TokenAuthenticationFilter    : Creating token for user: user start
+2021-02-01 17:30:29.339  INFO 13452 --- [http-nio-8080-exec-6] c.p.j.p.s.f.TokenAuthenticationFilter    : Token for user: user created
+2021-02-01 17:30:29.347  INFO 13452 --- [http-nio-8080-exec-6] c.p.j.p.c.ClientController               : Adding one client starts
+2021-02-01 17:30:29.360  WARN 13452 --- [http-nio-8080-exec-6] o.h.e.j.s.SqlExceptionHelper             : SQL Error: 1062, SQLState: 23000
+2021-02-01 17:30:29.361 ERROR 13452 --- [http-nio-8080-exec-6] o.h.e.j.s.SqlExceptionHelper             : Duplicate entry 'arthur555@psu.ru' for key 'client.uk_email'
+2021-02-01 17:31:16.862  INFO 13452 --- [http-nio-8080-exec-6] c.p.j.p.c.ClientController               : Not added client. Error: Duplicate entry 'arthur555@psu.ru' for key 'client.uk_email'
+2021-02-01 17:31:16.862  WARN 13452 --- [HikariPool-1 housekeeper] c.z.h.p.HikariPool                       : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m913ms495µs300ns).
+2021-02-01 18:04:54.910  INFO 13452 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor           : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-02-01 18:04:54.914  INFO 13452 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-02-01 18:04:54.921  INFO 13452 --- [SpringContextShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2021-02-01 18:04:54.950  INFO 13452 --- [SpringContextShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2021-02-03 14:59:18.934  INFO 12084 --- [main] c.p.j.p.PracticeRestApplication          : Starting PracticeRestApplication using Java 15.0.1 on Flip-pc with PID 12084 (F:\Documents\Projects\java\practice_rest\target\classes started by flips in F:\Documents\Projects\java\practice_rest)
+2021-02-03 14:59:18.970  INFO 12084 --- [main] c.p.j.p.PracticeRestApplication          : No active profile set, falling back to default profiles: default
+2021-02-03 14:59:20.122  INFO 12084 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-02-03 14:59:20.273  INFO 12084 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 136 ms. Found 3 JPA repository interfaces.
+2021-02-03 14:59:20.741  INFO 12084 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@cda6019' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-02-03 14:59:20.751  INFO 12084 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-02-03 14:59:21.211  INFO 12084 --- [main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8080 (http)
+2021-02-03 14:59:21.230  INFO 12084 --- [main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2021-02-03 14:59:21.232  INFO 12084 --- [main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-02-03 14:59:21.411  INFO 12084 --- [main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2021-02-03 14:59:21.411  INFO 12084 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2312 ms
+2021-02-03 14:59:21.541  WARN 12084 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-03 14:59:21.709  INFO 12084 --- [main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-03 14:59:21.799  INFO 12084 --- [main] o.h.Version                              : HHH000412: Hibernate ORM core version 5.4.25.Final
+2021-02-03 14:59:22.034  INFO 12084 --- [main] o.h.a.c.Version                          : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-03 14:59:22.210  INFO 12084 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2021-02-03 14:59:23.512  INFO 12084 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2021-02-03 14:59:23.537  INFO 12084 --- [main] o.h.d.Dialect                            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-03 14:59:24.703  INFO 12084 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-03 14:59:24.714  INFO 12084 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-03 14:59:25.785  INFO 12084 --- [main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1a5a4f8, org.springframework.security.web.context.SecurityContextPersistenceFilter@19855799, org.springframework.security.web.header.HeaderWriterFilter@848d9bc, org.springframework.security.web.authentication.logout.LogoutFilter@488b46da, com.practice.job.practice_rest.security.filter.TokenAuthenticationFilter@79bf39e5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5020b59f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7f5f7731, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5392aa2b, org.springframework.security.web.session.SessionManagementFilter@728535c6, org.springframework.security.web.access.ExceptionTranslationFilter@3adeca1f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@57bfca3a]
+2021-02-03 14:59:25.962  INFO 12084 --- [main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-03 14:59:26.364  INFO 12084 --- [main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-03 14:59:26.379  INFO 12084 --- [main] c.p.j.p.PracticeRestApplication          : Started PracticeRestApplication in 9.463 seconds (JVM running for 14.582)
+2021-02-03 14:59:43.784  INFO 12084 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor           : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-02-03 14:59:43.789  INFO 12084 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-02-03 14:59:43.792  INFO 12084 --- [SpringContextShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2021-02-03 14:59:43.834  INFO 12084 --- [SpringContextShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2021-02-03 14:59:54.246  INFO 9500 --- [main] c.p.j.p.PracticeRestApplication          : Starting PracticeRestApplication using Java 15.0.1 on Flip-pc with PID 9500 (F:\Documents\Projects\java\practice_rest\target\classes started by flips in F:\Documents\Projects\java\practice_rest)
+2021-02-03 14:59:54.262  INFO 9500 --- [main] c.p.j.p.PracticeRestApplication          : No active profile set, falling back to default profiles: default
+2021-02-03 14:59:55.270  INFO 9500 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-02-03 14:59:55.391  INFO 9500 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 109 ms. Found 3 JPA repository interfaces.
+2021-02-03 14:59:55.846  INFO 9500 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@3c87fdf2' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-02-03 14:59:55.865  INFO 9500 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-02-03 14:59:56.200  INFO 9500 --- [main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8080 (http)
+2021-02-03 14:59:56.214  INFO 9500 --- [main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2021-02-03 14:59:56.214  INFO 9500 --- [main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-02-03 14:59:56.374  INFO 9500 --- [main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2021-02-03 14:59:56.375  INFO 9500 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2038 ms
+2021-02-03 14:59:56.507  WARN 9500 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-03 14:59:56.672  INFO 9500 --- [main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-03 14:59:56.740  INFO 9500 --- [main] o.h.Version                              : HHH000412: Hibernate ORM core version 5.4.25.Final
+2021-02-03 14:59:56.898  INFO 9500 --- [main] o.h.a.c.Version                          : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-03 14:59:57.050  INFO 9500 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2021-02-03 14:59:57.537  INFO 9500 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2021-02-03 14:59:57.554  INFO 9500 --- [main] o.h.d.Dialect                            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-03 14:59:58.577  INFO 9500 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-03 14:59:58.597  INFO 9500 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-03 14:59:59.680  INFO 9500 --- [main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@337fb1a5, org.springframework.security.web.context.SecurityContextPersistenceFilter@3f62d56, org.springframework.security.web.header.HeaderWriterFilter@28d16af8, org.springframework.security.web.authentication.logout.LogoutFilter@66046e7c, com.practice.job.practice_rest.security.filter.TokenAuthenticationFilter@68b3979d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@448a6d00, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@742dbac8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@38b0e2a7, org.springframework.security.web.session.SessionManagementFilter@1aee6983, org.springframework.security.web.access.ExceptionTranslationFilter@2f9236d8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@35277c6c]
+2021-02-03 14:59:59.860  INFO 9500 --- [main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-03 15:00:00.626  INFO 9500 --- [main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-03 15:00:00.676  INFO 9500 --- [main] c.p.j.p.PracticeRestApplication          : Started PracticeRestApplication in 7.429 seconds (JVM running for 9.985)
+2021-02-03 15:10:57.595  INFO 9500 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor           : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-02-03 15:10:57.599  INFO 9500 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-02-03 15:10:57.601  INFO 9500 --- [SpringContextShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2021-02-03 15:10:57.630  INFO 9500 --- [SpringContextShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2021-02-03 15:11:08.627  INFO 10416 --- [main] c.p.j.p.PracticeRestApplication          : Starting PracticeRestApplication using Java 15.0.1 on Flip-pc with PID 10416 (F:\Documents\Projects\java\practice_rest\target\classes started by flips in F:\Documents\Projects\java\practice_rest)
+2021-02-03 15:11:08.647  INFO 10416 --- [main] c.p.j.p.PracticeRestApplication          : No active profile set, falling back to default profiles: default
+2021-02-03 15:11:09.887  INFO 10416 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-02-03 15:11:10.016  INFO 10416 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 111 ms. Found 3 JPA repository interfaces.
+2021-02-03 15:11:10.523  INFO 10416 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@3f736a16' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-02-03 15:11:10.532  INFO 10416 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-02-03 15:11:10.844  INFO 10416 --- [main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8080 (http)
+2021-02-03 15:11:10.857  INFO 10416 --- [main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2021-02-03 15:11:10.858  INFO 10416 --- [main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2021-02-03 15:11:11.013  INFO 10416 --- [main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2021-02-03 15:11:11.014  INFO 10416 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2230 ms
+2021-02-03 15:11:11.114  WARN 10416 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-02-03 15:11:11.255  INFO 10416 --- [main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-02-03 15:11:11.321  INFO 10416 --- [main] o.h.Version                              : HHH000412: Hibernate ORM core version 5.4.25.Final
+2021-02-03 15:11:11.467  INFO 10416 --- [main] o.h.a.c.Version                          : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-02-03 15:11:11.589  INFO 10416 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2021-02-03 15:11:12.101  INFO 10416 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2021-02-03 15:11:12.132  INFO 10416 --- [main] o.h.d.Dialect                            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-02-03 15:11:13.613  INFO 10416 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-02-03 15:11:13.624  INFO 10416 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-02-03 15:11:15.127  INFO 10416 --- [main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5598dff2, org.springframework.security.web.context.SecurityContextPersistenceFilter@3c9c91e3, org.springframework.security.web.header.HeaderWriterFilter@340c7479, org.springframework.security.web.authentication.logout.LogoutFilter@25d9298e, com.practice.job.practice_rest.security.filter.TokenAuthenticationFilter@5bcfdaf3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2f2d8770, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5020b59f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@92b1bda, org.springframework.security.web.session.SessionManagementFilter@43e30f15, org.springframework.security.web.access.ExceptionTranslationFilter@6c2be147, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@73eae5f]
+2021-02-03 15:11:15.620  INFO 10416 --- [main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-03 15:11:16.220  INFO 10416 --- [main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8080 (http) with context path ''
+2021-02-03 15:11:16.243  INFO 10416 --- [main] c.p.j.p.PracticeRestApplication          : Started PracticeRestApplication in 8.812 seconds (JVM running for 11.534)
+2021-02-03 15:15:44.847  INFO 10416 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor           : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-02-03 15:15:44.851  INFO 10416 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-02-03 15:15:44.853  INFO 10416 --- [SpringContextShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2021-02-03 15:15:44.867  INFO 10416 --- [SpringContextShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.

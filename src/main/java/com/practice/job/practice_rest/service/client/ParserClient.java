@@ -1,6 +1,7 @@
 package com.practice.job.practice_rest.service.client;
 
 import com.practice.job.practice_rest.model.Client;
+import lombok.Getter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,11 +9,10 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Getter
 public class ParserClient {
-    private Client client = new Client();
+    private final Client client = new Client();
     private String status;
-
-
 
     public void FromString(ClientString client){
         this.status = "";
@@ -52,15 +52,7 @@ public class ParserClient {
         return client;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     public String getStatus() {
         return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }

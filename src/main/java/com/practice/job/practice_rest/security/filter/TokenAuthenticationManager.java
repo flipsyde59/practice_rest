@@ -9,7 +9,6 @@ import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
@@ -59,7 +58,7 @@ public class TokenAuthenticationManager implements AuthenticationManager {
 
     private TokenAuthentication buildFullTokenAuthentication(TokenAuthentication authentication, DefaultClaims claims) {
         User user = userDetailsService.findByLogin(claims.get("username", String.class));
-        Collection<Role> authorities = user.getRoles();
+        Collection<Role> authorities = user.getRole();
         return new TokenAuthentication(authentication.getToken(), authorities, true, user);
     }
 

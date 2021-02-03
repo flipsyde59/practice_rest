@@ -13,31 +13,19 @@ public interface ClientRepository extends CrudRepository<Client, Integer> {
 
     @Modifying
     @Transactional
-    @Query("update Client c set c.name = :name where c.id = :id")
-    void updateName(@Param(value = "id") Integer id, @Param(value = "name") String name);
+    @Query("update Client c set c.name = :name," +
+           " c.email = :email, c.age = :age," +
+           " c.educated = :educated," +
+           " c.birth_date = :birth_date," +
+           " c.growth = :growth" +
+                " where c.id = :id")
+    void update(@Param(value = "id") Integer id,
+                @Param(value = "name") String name,
+                @Param(value = "email") String email,
+                @Param(value = "age") Integer age,
+                @Param(value = "educated") Boolean educated,
+                @Param(value = "birth_date") Date birth_date,
+                @Param(value = "growth") Float growth
+    );
 
-    @Modifying
-    @Transactional
-    @Query("update Client c set c.email = :email where c.id = :id")
-    void updateEmail(@Param(value = "id") Integer id, @Param(value = "email") String email);
-
-    @Modifying
-    @Transactional
-    @Query("update Client c set c.age = :age where c.id = :id")
-    void updateAge(@Param(value = "id") Integer id, @Param(value = "age") Integer age);
-
-    @Modifying
-    @Transactional
-    @Query("update Client c set c.educated = :educated where c.id = :id")
-    void updateEducated(@Param(value = "id") Integer id, @Param(value = "educated") Boolean educated);
-
-    @Modifying
-    @Transactional
-    @Query("update Client c set c.birth_date = :birth_date where c.id = :id")
-    void updateBirth_date(@Param(value = "id") Integer id, @Param(value = "birth_date") Date birth_date);
-
-    @Modifying
-    @Transactional
-    @Query("update Client c set c.growth = :growth where c.id = :id")
-    void updateGrowth(@Param(value = "id") Integer id, @Param(value = "growth") Float growth);
 }

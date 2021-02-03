@@ -1,28 +1,18 @@
 package com.practice.job.practice_rest.security;
 
-import com.practice.job.practice_rest.model.User;
 import com.practice.job.practice_rest.security.filter.TokenAuthenticationEntryPoint;
 import com.practice.job.practice_rest.security.filter.TokenAuthenticationFilter;
 import com.practice.job.practice_rest.security.filter.TokenAuthenticationManager;
-import com.practice.job.practice_rest.service.user.UserData;
 import com.practice.job.practice_rest.service.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.security.authentication.AuthenticationServiceException;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.Filter;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
 
 
 @Configuration
@@ -43,10 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(restTokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/getToken").permitAll()
-                .antMatchers(HttpMethod.POST,"/rest/**").hasAuthority("admin")
-                .antMatchers(HttpMethod.PUT,"/rest/**").hasAuthority("admin")
-                .antMatchers(HttpMethod.DELETE,"/rest/**").hasAuthority("admin")
-                .antMatchers(HttpMethod.GET,"/rest/**").hasAnyAuthority("read", "admin")
+//                .antMatchers(HttpMethod.POST,"/rest/**").hasAuthority("admin")
+//                .antMatchers(HttpMethod.PUT,"/rest/**").hasAuthority("admin")
+//                .antMatchers(HttpMethod.DELETE,"/rest/**").hasAuthority("admin")
+//                .antMatchers(HttpMethod.GET,"/rest/**").hasAnyAuthority("read", "admin")
                 .anyRequest().authenticated();
     }
 

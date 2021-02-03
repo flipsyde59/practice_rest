@@ -6,11 +6,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
 import java.util.*;
 
 @Service
@@ -20,13 +17,11 @@ public class GetTokenServiceImpl implements GetTokenService {
     public String getToken(String username, String password, User user){
         if (username == null || password == null)
             return null;
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), user.getSalt(), 65536, 128);
         byte[] hash;
         try {
-            SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-            hash = f.generateSecret(spec).getEncoded();
+            hash = User.builder().getHash(password, user.getSalt());;
         } catch (NoSuchAlgorithmException | InvalidKeySpecException  e) {
-            return "Error" +e.getMessage();
+            return null;
         }
         Map<String, Object> tokenData = new HashMap<>();
         if (Arrays.equals(hash, user.getHash())) {
@@ -43,7 +38,7 @@ public class GetTokenServiceImpl implements GetTokenService {
             String key = "the_secret_key";
             return jwtBuilder.signWith(SignatureAlgorithm.HS512, key).compact();
         } else {
-            return "Authentication error";
+            return null;
         }
     }
 

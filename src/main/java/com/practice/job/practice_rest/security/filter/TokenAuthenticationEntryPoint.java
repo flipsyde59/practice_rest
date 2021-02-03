@@ -6,7 +6,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Base64;
 
 public class TokenAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
