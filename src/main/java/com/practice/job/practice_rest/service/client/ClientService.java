@@ -75,7 +75,10 @@ public class ClientService {
             fields.add("educated");
         }
         if (client.getBirth_date().compareTo(updClient.getBirth_date()) != 0) {
+            updClient.getBirth_date().setHours(0);
+            if (client.getBirth_date().compareTo(updClient.getBirth_date()) != 0) {
             fields.add("birth_date");
+        }
         }
         if (!client.getGrowth().equals(updClient.getGrowth())) {
             fields.add("growth");

@@ -80,7 +80,10 @@ public class RepositoryTests {
                         "growth":1.95
                         }]""".stripIndent()))
                 .andExpect(status().isOk())
-                .andExpect(content().string("All clients were added"));
+                .andExpect(content().string("Client with email=micael123@psu.ru was added\n" +
+                                            "Client with email=katekitty@psu.ru was added\n" +
+                                            "Client with email=oleg1111@psu.ru was added\n" +
+                                            "All clients were added"));
     }
 
     @Test
@@ -193,8 +196,8 @@ public class RepositoryTests {
                         "birth_date": "1--4.1--2.1-998",
                         "growth": "1.6vghj3"
                         }""".stripIndent()))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Error: Data can not be parsed\nEmail not valid\nExample: \"name@example.com\"\nError: Data can not be parsed\nAge must be an integer\nExample: 25\nError: Data can not be parsed\nDate must be the \"dd.MM.yyyy\" format\nExample: \"09.09.1999\"\nError: Data can not be parsed\nGrowth must be in meters and have a fractional value.\nExample: \"1.59\"\nUnforeseeable error. Incorrect data detected"));
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("message","Malformed JSON request").exists());
     }
 
     @Test
@@ -211,8 +214,8 @@ public class RepositoryTests {
                         "birth_date": "1--4.1--2.1-998",
                         "growth": "1.6vghj3"
                         }""".stripIndent()))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Error: Data can not be parsed\nEmail not valid\nExample: \"name@example.com\"\nError: Data can not be parsed\nAge must be an integer\nExample: 25\nError: Data can not be parsed\nDate must be the \"dd.MM.yyyy\" format\nExample: \"09.09.1999\"\nError: Data can not be parsed\nGrowth must be in meters and have a fractional value.\nExample: \"1.59\"\nUnforeseeable error. Incorrect data detected"));
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("message","Malformed JSON request").exists());
     }
 
     @Test

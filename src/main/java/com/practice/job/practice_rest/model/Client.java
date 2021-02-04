@@ -30,7 +30,7 @@ public class Client {
     @Setter
     private Boolean educated;
     @Temporal(TemporalType.DATE)
-    //@DateTimeFormat
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
     @Setter
     private Date birth_date;
     @Setter
