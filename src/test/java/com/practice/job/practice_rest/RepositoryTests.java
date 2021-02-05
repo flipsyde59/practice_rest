@@ -1,18 +1,30 @@
 package com.practice.job.practice_rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.job.practice_rest.controller.ClientController;
 import com.practice.job.practice_rest.model.Client;
 import com.practice.job.practice_rest.service.client.ClientRepository;
+import org.junit.Before;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +32,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(locations = "classpath:application.properties")
+@TestPropertySource(locations = "classpath:application.properties", properties = "security.enabled:false")
 @AutoConfigureMockMvc(addFilters = false)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RepositoryTests {
@@ -31,21 +43,15 @@ public class RepositoryTests {
     @Autowired
     private ClientRepository repository;
 
-//    @Test
-//    void posting() throws Exception{
-//        mvc.perform(post("/rest/clients/addOnes")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("""
-//                        {
-//                        "name": "Ilya",
-//                        "email": "ilyusha55@psu.ru",
-//                        "age": 32,
-//                        "educated": "true",
-//                        "birth_date": "1988-12-15",
-//                        "growth": 1.73
-//                        }""".stripIndent()))
-//                .andExpect(status().isOk())
-//                .andExpect(content().string("Client was added"));
+    @Autowired
+    private ObjectMapper objectMapper;
+
+//    @Before
+//    public void setup() {
+//        mvc = MockMvcBuilders
+//                .webAppContextSetup(context)
+//                .apply(springSecurity())
+//                .build();
 //    }
     @Test
     @Order(1)
@@ -58,31 +64,20 @@ public class RepositoryTests {
     @Test
     @Order(2)
     void postManyTest() throws Exception {
+        List<Client> clients = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date=sdf.parse("1995-12-05");
+        Client client=new Client("Micael","micael123@psu.ru",25, false, date, (float) 1.8);
+        clients.add(client);
+        date=sdf.parse("2002-05-19");
+        client=new Client("Kate","katekitty@psu.ru",18, false, date, (float) 1.55);
+        clients.add(client);
+        date=sdf.parse("1998-06-20");
+        client=new Client("Oleg","oleg1111@psu.ru",22, true, date, (float) 1.95);
+        clients.add(client);
         mvc.perform(post("/rest/clients/addMany")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        [{
-                        "name":"Micael",
-                        "email":"micael123@psu.ru",
-                        "age":25,"educated":false,
-                        "birth_date":"1995-12-05",
-                        "growth":1.8
-                        },
-                        {
-                        "name":"Kate",
-                        "email":"katekitty@psu.ru",
-                        "age":18,"educated":false,
-                        "birth_date":"2002-05-19",
-                        "growth":1.55
-                        },
-                        {
-                        "name":"Oleg",
-                        "email":"oleg1111@psu.ru",
-                        "age":22,
-                        "educated":true,
-                        "birth_date":"1998-06-20",
-                        "growth":1.95
-                        }]""".stripIndent()))
+                .content(objectMapper.writeValueAsString(clients)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Client with email=micael123@psu.ru was added\n" +
                                             "Client with email=katekitty@psu.ru was added\n" +
@@ -93,17 +88,12 @@ public class RepositoryTests {
     @Test
     @Order(3)
     void postOneTest() throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date=sdf.parse("1988-12-15");
+        Client client=new Client("Ilya","ilyusha55@psu.ru",32, true, date, (float) 1.73);
         mvc.perform(post("/rest/clients/addOne")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        {
-                        "name": "Ilya",
-                        "email": "ilyusha55@psu.ru",
-                        "age": 32,
-                        "educated": "true",
-                        "birth_date": "1988-12-15",
-                        "growth": 1.73
-                        }""".stripIndent()))
+                .content(objectMapper.writeValueAsString(client)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Client was added"));
     }
@@ -135,17 +125,12 @@ public class RepositoryTests {
     @Test
     @Order(7)
     void updateExistingClientById() throws Exception{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date=sdf.parse("1998-12-14");
+        Client client=new Client("Mary","maryyyyyy@psu.ru",22, false, date, (float) 1.63);
         mvc.perform(put("/rest/clients/4")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        {
-                        "name": "Mary",
-                        "email": "maryyyyyy@psu.ru",
-                        "age": 22,
-                        "educated": "false",
-                        "birth_date": "1998-12-14",
-                        "growth": 1.63
-                        }""".stripIndent()))
+                .content(objectMapper.writeValueAsString(client)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Fields that have been updated:\nname|email|age|educated|birth_date|growth"));
     }
@@ -153,17 +138,12 @@ public class RepositoryTests {
     @Test
     @Order(8)
     void updateExistingClientByIdWithoutChange() throws Exception{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date=sdf.parse("1998-12-14");
+        Client client=new Client("Mary","maryyyyyy@psu.ru",22, false, date, (float) 1.63);
         mvc.perform(put("/rest/clients/4")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        {
-                        "name": "Mary",
-                        "email": "maryyyyyy@psu.ru",
-                        "age": 22,
-                        "educated": "false",
-                        "birth_date": "1998-12-14",
-                        "growth": 1.63
-                        }""".stripIndent()))
+                .content(objectMapper.writeValueAsString(client)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Nothing have been changed"));
     }
@@ -171,17 +151,12 @@ public class RepositoryTests {
     @Test
     @Order(9)
     void updateNotExistingClientById() throws Exception{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date=sdf.parse("1998-12-14");
+        Client client=new Client("Mary","maryyyyyy@psu.ru",22, false, date, (float) 1.63);
         mvc.perform(put("/rest/clients/22")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        {
-                        "name": "Mary",
-                        "email": "maryyyyyy@psu.ru",
-                        "age": 22,
-                        "educated": "false",
-                        "birth_date": "1998-12-14",
-                        "growth": 1.63
-                        }""".stripIndent()))
+                .content(objectMapper.writeValueAsString(client)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Client with that id=22 not found"));
     }
@@ -225,33 +200,23 @@ public class RepositoryTests {
     @Test
     @Order(12)
     void postClientWithExistingEmail() throws Exception{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date=sdf.parse("1998-12-14");
+        Client client=new Client("Mary","maryyyyyy@psu.ru",22, false, date, (float) 1.63);
         mvc.perform(post("/rest/clients/addOne")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        {
-                        "name": "Mary",
-                        "email": "maryyyyyy@psu.ru",
-                        "age": 22,
-                        "educated": "false",
-                        "birth_date": "1998-12-14",
-                        "growth": 1.63
-                        }""".stripIndent()))
+                .content(objectMapper.writeValueAsString(client)))
                 .andExpect(status().isOk());
     }
     @Test
     @Order(13)
     void updateClientChangeEmailToExistingEmail() throws Exception{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date=sdf.parse("1998-12-14");
+        Client client=new Client("Mary","ilyusha55@psu.ru",22, false, date, (float) 1.63);
         mvc.perform(put("/rest/clients/4")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        {
-                        "name": "Mary",
-                        "email": "ilyusha55@psu.ru",
-                        "age": 22,
-                        "educated": "false",
-                        "birth_date": "1998-12-14",
-                        "growth": 1.63
-                        }""".stripIndent()))
+                .content(objectMapper.writeValueAsString(client)))
                 .andExpect(status().isOk());
     }
 
