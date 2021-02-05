@@ -19,7 +19,7 @@ public class GetTokenServiceImpl implements GetTokenService {
             return null;
         byte[] hash;
         try {
-            hash = User.builder().getHash(password, user.getSalt());;
+            hash = User.builder().getHash(password, user.getSalt());
         } catch (NoSuchAlgorithmException | InvalidKeySpecException  e) {
             return null;
         }

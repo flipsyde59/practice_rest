@@ -7,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import java.util.*;
 
@@ -36,5 +35,15 @@ public class Client {
     @Setter
     @DecimalMax("3.00")
     private Float growth;
+    public Client(String name, String email, Integer age, Boolean educated, Date birth_date, Float growth){
+        this.name=name;
+        this.email=email;
+        this.age=age;
+        this.educated=educated;
+        this.birth_date=birth_date;
+        this.growth=growth;
+    }
+    public Client(){
 
+    }
 }

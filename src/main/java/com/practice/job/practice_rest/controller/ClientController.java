@@ -50,6 +50,7 @@ public class ClientController {
         return result;
     }
 
+    @PreAuthorize("hasAnyAuthority('read', 'admin')")
     @GetMapping(path = "/")
     public @ResponseBody
     Object getAllClients() {
@@ -57,6 +58,7 @@ public class ClientController {
         return clientService.getAllClients();
     }
 
+    @PreAuthorize("hasAnyAuthority('read', 'admin')")
     @GetMapping(value = "/{id}")
     public @ResponseBody
     ResponseEntity<?> getClientById(@PathVariable(name = "id") Integer id) {
